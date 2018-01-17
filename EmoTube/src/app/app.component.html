@@ -1,6 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="jumbotron">
-    <h1 class="display-3">{{title}}!</h1>
+<div class="jumbotron row">
+  <div class="col-4">
+    <span class="display-3" style="font-size: 5vw;">{{title}}!</span>
+  </div>
+    <div class="col-7" style="text-align: right;">
+        <i class="fa fa-backward" aria-hidden="true" style="font-size: 4vw; padding-right: 3vw"></i>
+        <i class="fa fa-play" aria-hidden="true" style="font-size: 5vw; padding-right: 3vw"></i>
+        <i class="fa fa-forward" aria-hidden="true" style="font-size: 4vw; padding-right: 3vw"></i>
+        <i class="fa fa-list" aria-hidden="true" style="font-size: 4vw; padding-right: 3vw"></i>
+    </div>
   </div>
 <div class="form-inline" style="width: 100%; display: flex; align-items: center; justify-content: center;">
   <input class="form-control col-8" [(ngModel)]='url' type="text" placeholder="Paste Image URL" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">

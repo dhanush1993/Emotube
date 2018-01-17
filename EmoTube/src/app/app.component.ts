@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 import { RecoService } from './recognizer/reco.service';
 import { Scores } from './scores';
 import { BoundingBox } from './boundingBox';
@@ -17,6 +17,21 @@ export class AppComponent {
   constructor(private reco:RecoService){}
   url: String = '';
   title = 'EmoTube';
+
+  @HostListener('window:resize') onResize() {
+    // guard against resize before view is rendered
+      this.resetBoundingBox();
+    }
+
+    resetBoundingBox(){
+      this.aspectRatio = this.image.nativeElement.clientWidth/this.image.nativeElement.naturalWidth;
+      for(let i=0; i<this.boundingBoxes.length;i++){
+        this.boundingBoxes[i].height = this.boundingBoxes[i].origHeight * this.aspectRatio;
+        this.boundingBoxes[i].width = this.boundingBoxes[i].origWidth * this.aspectRatio;
+        this.boundingBoxes[i].top = this.boundingBoxes[i].origTop * this.aspectRatio + 40;
+        this.boundingBoxes[i].left = this.boundingBoxes[i].origLeft * this.aspectRatio + 40;
+      }
+    }
 
   resetImage(box:BoundingBox,index:number){
     for(let i=0;i<this.boundingBoxes.length;i++){
@@ -58,10 +73,10 @@ export class AppComponent {
       avgScore.sadness+=score.sadness;
       score.surprise = parseFloat((dat[i].scores.surprise*100).toFixed(2));
       avgScore.surprise+=score.surprise;
-      boundingBox.height = ((dat[i].faceRectangle.height))*this.aspectRatio;
-      boundingBox.top = ((dat[i].faceRectangle.top))*this.aspectRatio +40;
-      boundingBox.width = ((dat[i].faceRectangle.width))*this.aspectRatio;
-      boundingBox.left = ((dat[i].faceRectangle.left))*this.aspectRatio + 40;
+      boundingBox.origHeight = ((dat[i].faceRectangle.height));
+      boundingBox.origTop = ((dat[i].faceRectangle.top));
+      boundingBox.origWidth = ((dat[i].faceRectangle.width));
+      boundingBox.origLeft = ((dat[i].faceRectangle.left));
       this.scores.push(score);
       this.boundingBoxes.push(boundingBox);
   }
@@ -74,6 +89,7 @@ export class AppComponent {
   avgScore.sadness+=avgScore.sadness/this.scores.length;
   avgScore.surprise+=avgScore.surprise/this.scores.length;
   this.score = avgScore;
+  this.resetBoundingBox();
 }
 
 }

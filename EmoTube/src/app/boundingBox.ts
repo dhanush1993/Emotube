@@ -3,6 +3,10 @@ export class BoundingBox{
     left: number;
     top: number;
     width: number;
+    origHeight: number;
+    origLeft: number;
+    origTop: number;
+    origWidth: number;
     bgColor: String;
     border: String;
     constructor(){

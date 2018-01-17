@@ -32,6 +32,7 @@ export class RecoService {
     let body = '{"url": "'+this.imageURL+'"}';
     return this.http.post('https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?', body, options).map(
       (res: Response)=> {return res}
+      
     );         
   }
 

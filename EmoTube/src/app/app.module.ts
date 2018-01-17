@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RecoService } from './recognizer/reco.service';
-import { Scores } from './scores'
+import { Scores } from './scores';
+import { NgStyle } from '@angular/common';
 
 
 import { AppComponent } from './app.component';

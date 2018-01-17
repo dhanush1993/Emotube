@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RecoService } from './recognizer/reco.service';
 import { Scores } from './scores';
 import { BoundingBox } from './boundingBox';
@@ -9,6 +9,8 @@ import { BoundingBox } from './boundingBox';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild('image')image: any;
+  aspectRatio: number;
   scores: Scores[] = [];
   boundingBoxes: BoundingBox[] = [];
   score: Scores =new Scores();
@@ -29,6 +31,7 @@ export class AppComponent {
   getEmotions(){
     this.boundingBoxes = [];
     this.scores = [];
+    this.aspectRatio = (this.image.nativeElement.clientWidth/this.image.nativeElement.naturalWidth);
     this.reco.setImageURL(this.url);
     this.reco.requestEmo().subscribe(data => this.calcScores(data));
   }
@@ -55,10 +58,10 @@ export class AppComponent {
       avgScore.sadness+=score.sadness;
       score.surprise = parseFloat((dat[i].scores.surprise*100).toFixed(2));
       avgScore.surprise+=score.surprise;
-      boundingBox.height = ((dat[i].faceRectangle.height));
-      boundingBox.top = ((dat[i].faceRectangle.top));
-      boundingBox.width = ((dat[i].faceRectangle.width));
-      boundingBox.left = ((dat[i].faceRectangle.left));
+      boundingBox.height = ((dat[i].faceRectangle.height))*this.aspectRatio;
+      boundingBox.top = ((dat[i].faceRectangle.top))*this.aspectRatio +40;
+      boundingBox.width = ((dat[i].faceRectangle.width))*this.aspectRatio;
+      boundingBox.left = ((dat[i].faceRectangle.left))*this.aspectRatio + 40;
       this.scores.push(score);
       this.boundingBoxes.push(boundingBox);
   }

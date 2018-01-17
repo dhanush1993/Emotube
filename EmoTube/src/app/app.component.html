@@ -1,28 +1,31 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<div class="jumbotron">
+    <h1 class="display-3">{{title}}!</h1>
   </div>
-<input [(ngModel)]='url' type="text" placeholder="Paste Image URL">
-<button (click)="getEmotions()">Done!</button>
+<div class="form-inline" style="width: 100%; display: flex; align-items: center; justify-content: center;">
+  <input class="form-control col-8" [(ngModel)]='url' type="text" placeholder="Paste Image URL" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+  <button (click)="getEmotions()" class="btn btn-primary" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">Done!</button>
+</div>
 <br>
-<div>
-    Anger: {{score.anger}}%<br>
-    Contempt: {{score.contempt}}%<br>
-    Disgust: {{score.disgust}}%<br>
-    Fear: {{score.fear}}%<br>
-    Happiness: {{score.happiness}}%<br>
-    Neutral: {{score.neutral}}%<br>
-    Sadness: {{score.sadness}}%<br>
-    Surprise: {{score.surprise}}%<br>
-  </div>
-<div style="width: 100%;">
-  <div style="width: 100%; position: absolute;">
-    <img src="{{url}}">
-    <div *ngFor="let box of boundingBoxes; index as i" [ngStyle]="{'width': box.width+'px','height': box.height+'px', 'top':box.top+'px', 'left':box.left+'px', 'position': 'absolute', 'border': '2px solid '+box.border, 'background':box.bgColor}" (click)="resetImage(box,i);">
+<div class="row">
+    <div class="col-9">
+        <div style="width: 100%; position: absolute; padding: 40px;">
+          <img src="{{url}}" style="width: 80%;" #image>
+          <div *ngFor="let box of boundingBoxes; index as i" [ngStyle]="{'width': box.width+'px','height': box.height+'px', 'top':box.top+'px', 'left':box.left+'px', 'position': 'absolute', 'border': '2px solid '+box.border, 'background':box.bgColor}" (click)="resetImage(box,i);">
+          </div>
+        </div>
+      </div>
+    <div class="col-2" style="padding: 20px;">
+      <app-emotion-panel [value]="score.anger" [name]="'Anger'"></app-emotion-panel>
+      <app-emotion-panel [value]="score.contempt" [name]="'Contempt'"></app-emotion-panel>
+      <app-emotion-panel [value]="score.disgust" [name]="'Disgust'"></app-emotion-panel>
+      <app-emotion-panel [value]="score.fear" [name]="'Fear'"></app-emotion-panel>
+      <app-emotion-panel [value]="score.happiness" [name]="'Happiness'"></app-emotion-panel>
+      <app-emotion-panel [value]="score.neutral" [name]="'Neutral'"></app-emotion-panel>
+      <app-emotion-panel [value]="score.sadness" [name]="'Sadness'"></app-emotion-panel>
+      <app-emotion-panel [value]="score.surprise" [name]="'Surprise'"></app-emotion-panel>
     </div>
-  </div>
+
 </div>
 
 

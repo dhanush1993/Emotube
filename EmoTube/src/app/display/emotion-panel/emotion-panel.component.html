@@ -1,0 +1,8 @@
+<div class="container" style="padding: 5px;">
+  <div class="row" style="color: white;">{{name}}</div>
+  <div class="progress row">
+      <div class="progress-bar" [ngStyle]="{'width':value+'%', 'background': (value < 33.4)?'red':(value < 66.8)? 'yellow':'green'}">
+        <span class="sr-only">{{value}}%</span>
+      </div>
+    </div>
+</div>

@@ -8,11 +8,13 @@ import { NgStyle } from '@angular/common';
 
 
 import { AppComponent } from './app.component';
+import { EmotionPanelComponent } from './display/emotion-panel/emotion-panel.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EmotionPanelComponent
   ],
   imports: [
     BrowserModule,
